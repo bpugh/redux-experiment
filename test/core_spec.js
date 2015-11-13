@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import {List, Map, fromJS} from 'immutable';
 import assert from 'assert';
 import {setEntries, next, vote} from '../src/core';
-console.log(new Date());
+console.log(new Date()); //eslint-disable-line no-console
 describe('application logic', () => {
   describe('setEntries', () => {
     it('adds the entries to the state', () => {
@@ -91,35 +91,23 @@ describe('application logic', () => {
   describe('vote', () => {
     it('creates a tally for the voted entry', () => {
       const state = fromJS({
-        vote: {
-          pair: moviePair
-        },
-        entries: []
+        pair: moviePair
       });
       const nextState = vote(state, 'Matrix');
-      expect(nextState).to.equal(fromJS({
-        vote: {
-          pair: moviePair,
-          tally: {Matrix: 1}
-        },
-        entries: []
+      assert.is(nextState, fromJS({
+        pair: moviePair,
+        tally: {Matrix: 1}
       }));
     });
     it('adds to existing tally for voted entry', () => {
       const state = fromJS({
-        vote: {
-          pair: moviePair,
-          tally: {Matrix: 2, Hitch: 1}
-        },
-        entries: []
+        pair: moviePair,
+        tally: {Matrix: 2, Hitch: 1}
       });
       const nextState = vote(state, 'Matrix');
-      expect(nextState).to.equal(fromJS({
-        vote: {
-          pair: moviePair,
-          tally: {Matrix: 3, Hitch: 1}
-        },
-        entries: []
+      assert.is(nextState, fromJS({
+        pair: moviePair,
+        tally: {Matrix: 3, Hitch: 1}
       }));
     });
   });
