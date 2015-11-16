@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
-    "testClient": "mocha --compilers js:babel-core/register --require ./src-client/test/test_helper.js '**/test/*.@(js|jsx)'",
+    "testClient": "mocha --compilers js:babel-core/register --require ./src-client/test/test_helper.js './src-client/test/**/*.@(js|jsx)'",
+    "testClient:watch": "npm run testClient -- --watch",
     "test:watch": "npm run test -- --watch"
   },
   "babel": {
@@ -18,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.20",
     "babel-eslint": "^4.1.4",
@@ -26,15 +28,19 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.4.0",
     "chai-immutable": "^1.5.2",
+    "css-loader": "^0.23.0",
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.7.1",
     "jsdom": "^7.0.2",
     "mocha": "^2.3.3",
+    "react-addons-test-utils": "^0.14.2",
     "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.5",
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "classnames": "^2.2.0",
     "immutable": "^3.7.5",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
