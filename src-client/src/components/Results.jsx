@@ -1,11 +1,15 @@
 import React from 'react';
+import Immutable from 'immutable';
 import {connect} from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Winner from './Winner';
+import * as actionCreators from '../action_creators';
+
+export const VOTE_WIDTH_PERCENT = 8;
 
 export const Results = React.createClass({
   propTypes: {
-    pair: React.PropTypes.instanceOf(React),
+    pair: React.PropTypes.instanceOf(Immutable.List),
     tally: React.PropTypes.object,
     winner: React.PropTypes.string,
     next: React.PropTypes.func
@@ -53,4 +57,7 @@ function mapStateToProps(state) {
   };
 }
 
-export const ResultsContainer = connect(mapStateToProps)(Results);
+export const ResultsContainer = connect(
+  mapStateToProps,
+  actionCreators
+)(Results);
