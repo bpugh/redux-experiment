@@ -1,32 +1,26 @@
 import React from 'react';
-import classNames from 'classnames';
+import {connect} from 'react-redux';
+import Winner from './Winner';
+import Vote from './Vote';
 
-export default React.createClass({
+export const Voting = React.createClass({
   propTypes: {
-    pair: React.PropTypes.array,
-    hasVoted: React.PropTypes.string
+    winner: React.PropTypes.string
   },
-  getPair() {
-    return this.props.pair || [];
-  },
-  isDisabled() {
-    return !!this.props.hasVoted;
-  },
-  hasVotedFor: function(entry) {
-    return this.props.hasVoted === entry;
-  },
-  render() {
-    return <div className="voting">
-      {this.getPair().map((entry) =>
-        <button
-          key={entry}
-          className={classNames({voted: this.hasVotedFor(entry)})}
-          onClick={() => this.props.vote(entry)}
-          disabled={this.isDisabled()}
-        >
-          <h1>{entry}</h1>
-        </button>
-      )}
+  render: function() {
+    return <div>
+      {this.props.winner ?
+        <Winner ref="winner" winner={this.props.winner} /> :
+        <Vote {...this.props} />}
     </div>;
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    pair: state.getIn(['vote', 'pair']),
+    winner: state.get('winner')
+  };
+}
+
+export const VotingContainer = connect(mapStateToProps)(Voting);
